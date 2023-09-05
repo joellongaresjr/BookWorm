@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^8.2.1"
+    "concurrently": "^8.2.1",
+    "create-vite": "^4.4.1"
   },
   "dependencies": {
     "apollo-server-express": "^3.12.1",
