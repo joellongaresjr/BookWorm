@@ -6,21 +6,23 @@ import {
   Col
 } from 'react-bootstrap';
 
+import { GET_ME } from '../utils/queries';
+import { DELETE_BOOK } from '../utils/mutations';
+import { useQuery, useMutation } from "@apollo/client"
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
-import { useQuery, useMutation } from "@apollo/client"
-import { GET_ME } from '../utils/queries';
-import { DELETE_BOOK } from '../utils/queries';
 
 const SavedBooks = () => {
-  const { loading, data } = useQuery(GET_ME);
-
-  const userData = data?.me;
-
+  const { loading, data, error } = useQuery(GET_ME);
+  console.log("Data", data)
+  console.log("Error", error)
   const [deleteBook] = useMutation(DELETE_BOOK);
 
+  const userData = data?.me || {};
 
-  // create function that accepts the book's mongo _id value as param and deletes the book from the database
+  console.log(userData.savedBooks)
+
+
   const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -30,7 +32,7 @@ const SavedBooks = () => {
 
     try {
       const updatedUser = await deleteBook({
-        variables: { bookId: bookId }
+        variables: { bookId }
       });
 
       if (!updatedUser) {
@@ -50,7 +52,6 @@ const SavedBooks = () => {
 
   return (
     <>
-      
         <Container fluid="true" className="text-light bg-dark p-5" >
           <h1>Viewing saved books!</h1>
         </Container>
