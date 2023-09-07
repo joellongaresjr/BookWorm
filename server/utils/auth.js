@@ -29,16 +29,18 @@ module.exports = {
     // verify token and get user data out of it
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      req.user = data;
+      req.user = data; // Attaching User Data to the request object
     } catch {
       console.log('Invalid token');
     }
 
-    // returning the updated request body 
+    // Returning the updated request object, which noww includes user data if the token is valid
     return req;
   },
+  // Function to sign a JWT token with user data
   signToken: function ({username, email, _id }) {
-    const payload = { username, email, _id };
+    const payload = { username, email, _id }; // User data to include in the token 
+    // Sign the token with the payload, secret key, and experiation time 
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
 };

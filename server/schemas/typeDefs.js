@@ -1,3 +1,9 @@
+// Defining the User Type represeting a user's information  (type User)
+// Defining the Book Type representing book details (type Book)
+// Defining the Input Type for creating or updating a book (input Bookinput) 
+// Defining the Auth type for authentication response (type Auth)
+// Define the Query type with a single query field 'me' to retrieve the currently authenticated user (type Quer)
+// Defining the Mutation type with varrious mutation field for user and book operations (type Mutation)
 const typeDefs = `
 type User {
     _id: ID
